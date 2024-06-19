@@ -1,0 +1,99 @@
+#include <iostream>
+using namespace std;
+
+#define max 10
+int num;
+int option;
+
+class cinema {
+public:
+    int array[max];
+    int front = -1;
+    int rear = -1;
+
+    void enqueue();
+    void dequeue();
+    void read();
+};
+
+void cinema::enqueue() {
+    int n;
+
+    rear++;
+
+    if (rear == front || rear == num ) {
+        cout << "overflow!\n";
+    }else if (rear == num  && (front != -1)) {
+        cout << "enter a number: ";
+        cin >> n;
+        rear = -1;
+        rear++;
+        array[rear] = n;
+    }else{
+        cout << "enter a number: ";
+        cin >> n;
+        array[rear] = n;
+    }
+}
+
+void cinema::dequeue() {
+    if (front == rear) {
+        cout << "underflow!" << endl;
+        front = -1;
+        rear = front;
+    }
+    else {
+        front++;
+        cout << "dequeue element: " << array[front] << endl;
+    }
+}
+
+void cinema::read() {
+    int i;
+
+    if (front == rear) {
+        cout << "there's no queue!" << endl;
+    }else {
+        for (i = (front+1); i <= rear; i++) {
+            cout << array[i] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    cinema gsc;
+
+    cout << "enter the number of queue (max=10): ";
+    cin >> num;
+
+    while (option != 4) {
+        cout << "1. enqueue\n" << "2. dequeue\n" << "3. show\n" << "4. exit" << endl;
+        cout << "choose an option: ";
+        cin >> option;
+        switch (option) {
+        case 1: {
+            gsc.enqueue();
+            break;
+        }
+        case 2: {
+            gsc.dequeue();
+            break;
+        }
+        case 3: {
+            gsc.read();
+            break;
+        }
+        case 4: {
+            cout << "exit." << endl;
+            break;
+        }
+        default: {
+            cout << "please enter a valid value." << endl;
+            break;
+        }
+        }
+    }
+
+    return 0;
+}
